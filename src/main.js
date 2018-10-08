@@ -4,6 +4,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import App from './App.vue'
+import router from './router/index'
 
 /* Bootstrap */
 import 'bootstrap/dist/css/bootstrap.css'
@@ -20,5 +21,6 @@ Vue.use(BootstrapVue)
 Vue.config.productionTip = false
 
 new Vue({
-  render: h => h(App)
+  render: h => h(App),
+  router
 }).$mount('#app')
