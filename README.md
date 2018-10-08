@@ -1,26 +1,36 @@
-# greenlife
+# GreenLife
 
-## Project setup
+## Sobre
+
+Cliente em Vue que mostra informações socio ambientais.
+
+# Instalação
+
+## Dependências
+
+- [Node.JS](http://nodejs.org)
+
+## Instalação
 ```
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+### Inicialização
 ```
 yarn run serve
 ```
 
-### Compiles and minifies for production
+### Build
 ```
 yarn run build
 ```
 
-### Run your tests
+### Teste
 ```
 yarn run test
 ```
 
-### Lints and fixes files
+### Lint
 ```
 yarn run lint
 ```
