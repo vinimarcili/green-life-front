@@ -41,6 +41,7 @@ export default {
           border-radius: 50%;
           box-shadow: 0 0 5px 0 $green;
           transition: $transition;
+          background: darken($white, 5%);
         }
         h1 {
           font-size: 20px;
