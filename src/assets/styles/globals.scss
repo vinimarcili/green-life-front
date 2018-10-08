@@ -1,7 +1,12 @@
+/* Base Colors */
+$white: #fff;
+$black: #000;
+/* Base Colors */
+
 /* Green */
 $green: #224128;
 $green-hover: #317464;
-$green-light: #317464;
+$green-light: #15A784;
 /* Green */
 
 /* Purple */
@@ -12,3 +17,8 @@ $purple-light: #6E3174;
 /* Transitions */
 $transition: all 0.3s ease;
 /* Transitions */
+
+/* Fonts */
+$default: 'Avenir', Helvetica, Arial, sans-serif;
+$comics: "Comic Sans MS", cursive, sans-serif;
+/* Fonts */

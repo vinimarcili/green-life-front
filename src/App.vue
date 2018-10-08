@@ -25,16 +25,16 @@ export default {
 <style lang="scss">
 @import "./assets/styles/globals";
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: $default;
   text-align: center;
   .navbar {
-    background: #15A784;
+    background: $green-light;
     .navbar-brand {
       margin: 0 auto;
       a {
         color: $green;
         transition: $transition;
-        font-family: "Comic Sans MS", cursive, sans-serif;
+        font-family: $comics;
         figure {
           margin: 0 auto;
           max-width: 15vh;
@@ -47,11 +47,11 @@ export default {
           transition: $transition;
         }
         &:hover, &:active, &:focus {
-          color: #317464;
+          color: $green-hover;
           text-decoration: none;
           figure {
             box-shadow: 0 0 5px 3px $green;
-            background: #fff;
+            background: $white;
           }
           h1 {
             text-shadow: 0 0 5px $green;
