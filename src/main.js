@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import VueResource from 'vue-resource'
 import BootstrapVue from 'bootstrap-vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faDizzy } from '@fortawesome/free-solid-svg-icons'
@@ -17,6 +18,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 /* Font Awesome */
 
 Vue.use(BootstrapVue)
+Vue.use(VueResource)
 
 Vue.config.productionTip = false
 
