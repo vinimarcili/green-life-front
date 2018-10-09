@@ -22,7 +22,7 @@
         <a target="_blank" href="mailto:jonatasjosf@gmail.com">
           Jonatas Ferreira
         </a> | 
-        <a target="_blank" href="https://github.com/vinimarcili">
+        <a target="_blank" href="https://github.com/marcbatista">
           Marcello Batista
         </a> | 
         <a target="_blank" href="https://github.com/pinheiroRaafa">
