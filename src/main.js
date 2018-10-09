@@ -4,7 +4,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faDizzy } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import App from './App.vue'
-import router from './router/index'
+import router from './router/router'
  
 /* Bootstrap */
 import 'bootstrap/dist/css/bootstrap.css'
