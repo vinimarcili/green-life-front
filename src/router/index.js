@@ -9,6 +9,9 @@ const routes = [
   {
     path: '/home',
     name: 'HomePage',
+    meta: {
+      title: 'GreenLife - Home'
+    },
     component: HomePage
   },
   {
@@ -18,6 +21,9 @@ const routes = [
   { 
     path: '/404',
     name: 'NotFound',
+    meta: {
+      title: 'GreenLife - 404 Not Found'
+    },
     component: NotFound
   },  
   {
@@ -28,6 +34,11 @@ const routes = [
 
 const router = new VueRouter({
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title
+  next()
 })
 
 export default router
