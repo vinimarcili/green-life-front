@@ -34,3 +34,12 @@ yarn run test
 ```
 yarn run lint
 ```
+
+## Exemplo de Environment
+
+Variavéis que devem ser definidas em um arquivo `.env` na raiz do projeto.
+
+```
+NODE_ENV -> Modo que a aplicação ira rodar
+GREENLIFE_API_URL -> URL da API do GreenLife
+```
