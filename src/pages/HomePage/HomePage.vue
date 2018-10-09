@@ -1,7 +1,7 @@
 <template>
-  <p>
+  <div id="home" class="content">
     oi
-  </p>
+  </div>
 </template>
 
 <script>

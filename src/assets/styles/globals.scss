@@ -23,3 +23,9 @@ $transition: all 0.3s ease;
 $default: 'Avenir', Helvetica, Arial, sans-serif;
 $comics: "Comic Sans MS", cursive, sans-serif;
 /* Fonts */
+
+/* Sizes */
+$min-height-container: calc(100vh - 285px);
+$min-height-container-tablet: calc(100vh - 315px);
+$min-height-container-mobile: calc(100vh - 335px);
+/* Sizes */

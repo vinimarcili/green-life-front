@@ -19,7 +19,7 @@
         <a target="_blank" href="https://github.com/guimap">
           Guilherme Pereira
         </a> | 
-        <a target="_blank" href="https://github.com/vinimarcili">
+        <a target="_blank" href="mailto:jonatasjosf@gmail.com">
           Jonatas Ferreira
         </a> | 
         <a target="_blank" href="https://github.com/vinimarcili">
@@ -50,6 +50,33 @@ export default {
 #app {
   font-family: $default;
   text-align: center;
+  min-height: 100vh;
+  position: relative;
+  background: $gray;
+  /* Global Configs */
+  a:hover {
+    text-decoration: none;
+  }
+  .content {
+    color: $green;
+    min-height: $min-height-container;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+    background: $white;
+  }
+  @media (max-width: 991px) {
+    .content {
+      min-height: $min-height-container-tablet;
+    }
+  }
+  @media (max-width: 767px) {
+    .content {
+      min-height: $min-height-container-mobile;
+    }
+  }
+  /* Global Configs */
   /* Header */
   .navbar {
     background: $green-light;
@@ -73,7 +100,6 @@ export default {
         }
         &:hover, &:active, &:focus {
           color: $green-hover;
-          text-decoration: none;
           figure {
             box-shadow: 0 0 5px 3px $green-hover;
             background: $white;
@@ -88,8 +114,10 @@ export default {
   /* Header */
   /* Footer */
   footer {
-    background: $gray;
+    position: absolute;
+    bottom: 0;
     padding: 15px;
+    width: 100%;
     p {
       margin: 0 auto;
       color: $green;
@@ -99,11 +127,15 @@ export default {
       }
       a {
         &:hover, &:active, &:focus {
-          text-decoration: none;
           color: $green-hover;
           font-size: 20px;
         }
       }
+    }
+  }
+  @media (max-width: 991px) {
+    footer {
+      position: relative;
     }
   }
   /* Footer */
