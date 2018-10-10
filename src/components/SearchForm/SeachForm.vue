@@ -41,6 +41,7 @@ export default {
       this.country = data
     },
     recieveState (data) {
+      console.log('recieve', data, 'recivied')
       if (data) {
         this.disabledCity = false
       }

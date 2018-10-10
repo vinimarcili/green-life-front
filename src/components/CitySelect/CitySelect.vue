@@ -21,11 +21,12 @@ export default {
     loading: Boolean,
     state: String
   },
-  updated () {
-    console.log(this.now)
-    console.log(this.state)
-    if (this.state !== this.now) {
-      this.requestCities(this.state)
+  watch: { 
+    state: function(newVal, oldVal) { 
+      console.log('Prop changed: ', newVal, ' | was: ', oldVal)
+       if (newVal !== oldVal) {
+      this.requestCities(newVal)
+      }
     }
   },
   methods: {
@@ -34,6 +35,7 @@ export default {
       if (state) {
         this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/cities/names/${state}`)
         .then((res) => {
+            console.log(res)
             const parse = res.body.map((item) => {
               return {
                 value: item,
