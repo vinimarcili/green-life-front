@@ -6,8 +6,6 @@
       class="mb-3" 
       :disabled="disabled"
       :loading="loading" 
-      v-bind="$attrs"
-      v-bind:value="selected"
       v-on="onChange"
     />
   </div>

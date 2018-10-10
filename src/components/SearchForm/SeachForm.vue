@@ -1,7 +1,6 @@
 <template>
   <div id="search-form">
     <b-form>
-      {{country}}
       <country-select
         v-on:pickcountry="recieveCountry"
         v-model="country"
