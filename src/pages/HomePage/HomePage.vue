@@ -1,11 +1,12 @@
 <template>
   <div id="home" class="content">
-    oi
+    <search-form></search-form>
   </div>
 </template>
 
-<script>
+<script>  
   const { VUE_APP_GREENLIFE_API_URL } = process.env
+  
   export default {
     name: 'HomePage',
     props: {
