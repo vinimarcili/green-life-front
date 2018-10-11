@@ -5,8 +5,7 @@
       :options="options" 
       class="mb-3" 
       :disabled="disabled"
-      :loading="loading" 
-      v-on:change="onChange"
+      :loading="loading"
     />
   </div>
 </template>
@@ -14,17 +13,16 @@
 <script>
 export default {
   name: 'CountrySelect',
-  model: {
-    event: 'change'
-  },
   props: {
     disabled: Boolean,
     loading: Boolean
   },
-  computed: {
-    onChange (event) {
-      this.$emit('pickcountry', this.selected)
-      return this.selected
+  watch: {
+    selected (newVal, oldVal) {
+       if (newVal !== oldVal) {
+        this.$emit('pickcountry', newVal)
+        return newVal
+      }
     }
   },
   data () {

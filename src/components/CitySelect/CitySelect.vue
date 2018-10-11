@@ -6,7 +6,6 @@
       class="mb-3" 
       :disabled="disabled"
       :loading="loading"
-      v-on="onChange"
     />
   </div>
 </template>
@@ -22,36 +21,37 @@ export default {
     state: String
   },
   watch: { 
-    state: function(newVal, oldVal) { 
-      console.log('Prop changed: ', newVal, ' | was: ', oldVal)
+    state (newVal, oldVal) { 
        if (newVal !== oldVal) {
       this.requestCities(newVal)
+      }
+    },
+    selected (newVal, oldVal) {
+       if (newVal !== oldVal) {
+        this.$emit('pickcity', newVal)
+        return newVal
       }
     }
   },
   methods: {
     requestCities (state) {
-      console.log(state)
       if (state) {
         this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/cities/names/${state}`)
         .then((res) => {
-            console.log(res)
             const parse = res.body.map((item) => {
               return {
                 value: item,
                 text: item
               }
             })
+            this.options = [
+              { value: null, text: 'Por favor selecione o Cidade', disabled: true }
+            ]
             this.options = this.options.concat(parse)
+            this.selected = null
             this.now = state
           })
       }
-    }
-  },
-  computed: {
-    onChange () {
-      this.$emit('pickcity', this.selected)
-      return this.selected
     }
   },
   data () {

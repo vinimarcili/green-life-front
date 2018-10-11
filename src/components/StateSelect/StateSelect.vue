@@ -6,7 +6,6 @@
       class="mb-3" 
       :disabled="disabled"
       :loading="loading" 
-      v-on="onChange"
     />
   </div>
 </template>
@@ -19,10 +18,12 @@ export default {
     loading: Boolean,
     country: String
   },
-  computed: {
-    onChange () {
-      this.$emit('pickstate', this.selected)
-      return this.selected
+  watch: {
+    selected (newVal, oldVal) {
+       if (newVal !== oldVal) {
+        this.$emit('pickstate', newVal)
+        return newVal
+      }
     }
   },
   data () {
