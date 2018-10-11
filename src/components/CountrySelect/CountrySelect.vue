@@ -29,7 +29,7 @@ export default {
     return {
       selected: null,
       options: [
-        { value: null, text: 'Por favor selecione o País', disabled: true },
+        { value: null, text: 'Selecione o País', disabled: true },
         { value: 'brazil', text: 'Brasil' }
       ]
     }
@@ -38,10 +38,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  #country-select {
-    select {
-      width: 100%;
-      border-radius: 0;
-    }
-  }
 </style>

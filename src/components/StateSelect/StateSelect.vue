@@ -30,7 +30,7 @@ export default {
     return {
       selected: null,
       options: [
-        { value: null, text: 'Por favor selecione o Estado',  disabled: true },
+        { value: null, text: 'Selecione o Estado',  disabled: true },
         { value: 'AC', text: 'Acre' },
         { value: 'AL', text: 'Alagoas' },
         { value: 'AP', text: 'Amapá' },
@@ -65,10 +65,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#state-select {
-  select {
-    width: 100%;
-    border-radius: 0;
-  }
-}
 </style>

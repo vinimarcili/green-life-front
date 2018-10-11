@@ -45,7 +45,7 @@ export default {
               }
             })
             this.options = [
-              { value: null, text: 'Por favor selecione o Cidade', disabled: true }
+              { value: null, text: 'Selecione o Cidade (Opcional)', disabled: true }
             ]
             this.options = this.options.concat(parse)
             this.selected = null
@@ -59,7 +59,7 @@ export default {
       now: null,
       selected: null,
       options: [
-        { value: null, text: 'Por favor selecione o Cidade', disabled: true }
+        { value: null, text: 'Selecione o Cidade (Opcional)', disabled: true }
       ]
     }
   }
@@ -67,10 +67,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#city-select {
-  select {
-    width: 100%;
-    border-radius: 0;
-  }
-}
 </style>

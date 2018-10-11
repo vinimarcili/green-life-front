@@ -17,6 +17,12 @@
         :state="state"
         :disabled="disabledCity"
       />
+      <b-button type="submit">
+        Encontrar <font-awesome-icon icon="leaf" />
+      </b-button>
+      <b-button type="button">
+        Usar localização <font-awesome-icon icon="map-marker" />
+      </b-button>
     </b-form>
   </div>
 </template>
@@ -53,6 +59,20 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="scss">
+@import "../../assets/styles/globals";
+#search-form {
+  select {
+    width: 100%;
+    border-radius: 0;
+    color: $green;
+  }
+  button {
+    background: $green;
+    border-radius: 0;
+    margin: 0 15px 15px;
+    border-color: $green-hover;
+    transition: $transition;
+  }
+}
 </style>
