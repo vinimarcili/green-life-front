@@ -66,6 +66,7 @@ export default {
     width: 100%;
     border-radius: 0;
     color: $green;
+    border-color: $green-hover;
   }
   button {
     background: $green;
@@ -73,6 +74,11 @@ export default {
     margin: 0 15px 15px;
     border-color: $green-hover;
     transition: $transition;
+    transition: $transition;
+    &:hover {
+      background: $white;
+      color: $green;
+    }
   }
 }
 </style>
