@@ -45,7 +45,7 @@ export default {
               }
             })
             this.options = [
-              { value: null, text: 'Selecione o Cidade (Opcional)', disabled: true }
+              { value: null, text: 'Selecione o Cidade', disabled: true }
             ]
             this.options = this.options.concat(parse)
             this.selected = null
@@ -59,7 +59,7 @@ export default {
       now: null,
       selected: null,
       options: [
-        { value: null, text: 'Selecione o Cidade (Opcional)', disabled: true }
+        { value: null, text: 'Selecione o Cidade', disabled: true }
       ]
     }
   }

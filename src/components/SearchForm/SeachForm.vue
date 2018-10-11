@@ -17,10 +17,19 @@
         :state="state"
         :disabled="disabledCity"
       />
-      <b-button type="submit">
+      <b-button
+        class="right"
+        type="button"
+        v-on:click.prevent="submit()"
+        :disabled="disableButton"
+      >
         Encontrar <font-awesome-icon icon="leaf" />
       </b-button>
-      <b-button type="button">
+      <b-button
+        class="left"
+        type="button"
+        v-on:click.prevent="submitLocation()"
+      >
         Usar localização <font-awesome-icon icon="map-marker" />
       </b-button>
     </b-form>
@@ -28,6 +37,8 @@
 </template>
 
 <script>
+const { VUE_APP_GREENLIFE_API_URL } = process.env
+
 export default {
   name: 'SeachForm',
   data () {
@@ -36,7 +47,8 @@ export default {
       state: null,
       city: null,
       disabledState: true,
-      disabledCity: true
+      disabledCity: true,
+      disableButton: true
     }
   },
   methods: {
@@ -53,7 +65,19 @@ export default {
       this.state = data
     },
     recieveCity (data) {
+      if (data) {
+        this.disableButton = false
+      }
       this.city = data
+    },
+    submit () {
+      this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/temperature/${this.state}/${this.city}`)
+        .then((data) => {
+          console.log(data)
+        })
+    },
+    submitLocation () {
+      window.alert("Em Breve")
     }
   }
 }
@@ -71,13 +95,29 @@ export default {
   button {
     background: $green;
     border-radius: 0;
-    margin: 0 15px 15px;
+    margin: 0 auto 15px;
     border-color: $green-hover;
+    position: absolute;
     transition: $transition;
-    transition: $transition;
+    width: calc(50% - 15px);
+    &.left {
+      left: 15px;
+    }
+    &.right {
+      right: 15px;
+    }
     &:hover {
       background: $white;
       color: $green;
+    }
+    &.disabled {
+      background: $gray-disable;
+      border-color: $gray-disable;
+      &:hover {
+        background: $gray-disable;
+        color: $white;
+        cursor: not-allowed;
+      }
     }
   }
 }
