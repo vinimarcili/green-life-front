@@ -40,9 +40,11 @@
 const { VUE_APP_GREENLIFE_API_URL } = process.env
 
 export default {
-  name: 'SeachForm',
+  name: 'SearchForm',
   data () {
     return {
+      temperature: {},
+      air: {},
       country: null,
       state: null,
       city: null,
@@ -71,13 +73,32 @@ export default {
       this.city = data
     },
     submit () {
-      this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/temperature/${this.state}/${this.city}`)
+      this.temperature = this.getTemperature()
+      this.air = this.getAir()
+    },
+    getTemperature () {
+      return this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/temperature/${this.state}/${this.city}`)
         .then((data) => {
-          console.log(data)
+          return data.body || {}
+        })
+    },
+    getAir () {
+      return this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/air/${this.state}/${this.city}`)
+        .then((data) => {
+          return data.body || {}
         })
     },
     submitLocation () {
       window.alert("Em Breve")
+      // window.testeGeolocation = function() {
+      //   if ("geolocation" in navigator) {
+      //     navigator.geolocation.getCurrentPosition(function(posicao) {
+      //       alert(posicao.coords.latitude + ', ' + posicao.coords.longitude); 
+      //     });
+      //   } else {
+      //     alert('seu navegador não suporta geolocation');
+      //   }
+      // }
     }
   }
 }

@@ -27,8 +27,8 @@ Vue.use(VueResource)
 /* Vue Resource */
 
 /* Components */
-import SeachForm from './components/SearchForm/SeachForm'
-Vue.component('search-form', SeachForm)
+import SearchForm from './components/SearchForm/SearchForm'
+Vue.component('search-form', SearchForm)
 
 import CountrySelect from './components/CountrySelect/CountrySelect'
 Vue.component('country-select', CountrySelect)
