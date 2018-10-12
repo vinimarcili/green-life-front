@@ -17,9 +17,7 @@
   </div>
 </template>
 
-<script>  
-  const { VUE_APP_GREENLIFE_API_URL } = process.env
-  
+<script>
   export default {
     name: 'HomePage'    
   }

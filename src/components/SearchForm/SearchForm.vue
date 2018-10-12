@@ -29,6 +29,7 @@
         class="left"
         type="button"
         v-on:click.prevent="submitLocation()"
+        :disabled="disableLocation"
       >
         Usar localização <font-awesome-icon icon="map-marker" />
       </b-button>
@@ -45,12 +46,14 @@ export default {
     return {
       temperature: {},
       air: {},
+      airGeo: {},
       country: null,
       state: null,
       city: null,
       disabledState: true,
       disabledCity: true,
-      disableButton: true
+      disableButton: true,
+      disableLocation: false
     }
   },
   methods: {
@@ -79,26 +82,27 @@ export default {
     getTemperature () {
       return this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/temperature/${this.state}/${this.city}`)
         .then((data) => {
-          return data.body || {}
+          return JSON.parse(JSON.stringify(data.body)) || {}
         })
     },
     getAir () {
       return this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/air/${this.state}/${this.city}`)
         .then((data) => {
-          return data.body || {}
+          return JSON.parse(JSON.stringify(data.body)) || {}
         })
     },
     submitLocation () {
-      window.alert("Em Breve")
-      // window.testeGeolocation = function() {
-      //   if ("geolocation" in navigator) {
-      //     navigator.geolocation.getCurrentPosition(function(posicao) {
-      //       alert(posicao.coords.latitude + ', ' + posicao.coords.longitude); 
-      //     });
-      //   } else {
-      //     alert('seu navegador não suporta geolocation');
-      //   }
-      // }
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition((p) => {
+          this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/air/geo/${p.coords.latitude}/${p.coords.longitude}`)
+           .then((data) => {
+              this.airGeo = JSON.parse(JSON.stringify(data.body)) || {}
+            }) 
+        })
+      } else {
+        this.disableLocation = true
+        alert('Seu navegador não suporta geolocation')
+      }
     }
   }
 }
@@ -107,6 +111,7 @@ export default {
 <style lang="scss">
 @import "../../assets/styles/globals";
 #search-form {
+  margin: 0 auto 60px;
   select {
     width: 100%;
     border-radius: 0;
