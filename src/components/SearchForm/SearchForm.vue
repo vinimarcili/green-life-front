@@ -118,7 +118,7 @@ export default {
             .then(this.getWeatherGeo(p.coords.latitude, p.coords.longitude))
             .then(this.enableForm)
             .catch(() => {
-              this.error = "Não foi possivel obter os dados :("
+              this.error = "Não foi possivel obter os dados :( Verifique o formulário e tente novamente"
               this.enableForm()
             })
         })
@@ -245,6 +245,7 @@ export default {
     margin: 60px auto -40px;
     border: 2px solid red;
     transition: $transition;
+    max-width: 50%;
   }
 }
 </style>

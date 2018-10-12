@@ -84,7 +84,7 @@
       transition: $transition;
       cursor: pointer;
       svg {
-        animation: $spin-grow;
+        animation: $shake-right;
       }
       &:hover, &:active, &:focus {
         width: 65px;
