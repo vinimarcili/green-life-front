@@ -6,7 +6,7 @@
         Coletando dados
       </span>
     </div>
-    <b-form>
+    <b-form v-if="!loading">
       <country-select
         v-on:pickcountry="recieveCountry"
         v-model="country"
@@ -174,21 +174,15 @@ export default {
 #search-form {
   margin: 0 auto 60px;
   .loader-container {
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    line-height: 100vh;
-    left: 0;
-    top: 0;
-    background: rgba(0, 0, 0, 0.1);
     z-index: 1;
+    margin: 15px auto;
     span {
       display: inline-block;
       line-height: 20px;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 600;
-      top: calc(50% + 50px);
-      left: calc(50% - 70px);
+      top: calc(50% + 75px);
+      left: calc(50% - 60px);
       position: absolute;
       animation: grow 1.5s linear infinite;
     }
@@ -212,6 +206,7 @@ export default {
     position: absolute;
     transition: $transition;
     width: calc(50% - 15px);
+    overflow: hidden;
     &.left {
       left: 15px;
     }

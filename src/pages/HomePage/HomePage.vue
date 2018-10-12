@@ -1,15 +1,11 @@
 <template>
   <div id="home" class="content">
-    <b-container>
+    <b-container fluid>
       <b-row>
         <b-col cols="12">
           <p> 
             O GreenLife busca informações socio ambientais baseados na localização escolhida.
           </p>
-        </b-col>
-      </b-row>
-      <b-row>
-        <b-col cols="12">
           <search-form />
         </b-col>
       </b-row>
@@ -30,6 +26,9 @@
     display: inline-block;
     color: $green;
     margin: 15px auto;
+  }
+  .form-container {
+
   }
 }
 </style>
