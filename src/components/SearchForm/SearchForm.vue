@@ -114,8 +114,13 @@ export default {
       if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(async (p) => {
           this.disableForm()
-          this.weather = await this.getAirGeo(p.coords.latitude, p.coords.longitude)
-          this.air = await this.getWeatherGeo(p.coords.latitude, p.coords.longitude)
+
+          const responseAir = await this.getAirGeo(p.coords.latitude, p.coords.longitude)
+          const responseWeather = await this.getAirGeo(p.coords.latitude, p.coords.longitude)
+
+          this.air = this.toString(responseAir.body)
+          this.weather = this.toString(responseWeather.body)
+
           if (this.weather && this.air) {
             this.onSuccess()
           } else {
@@ -128,16 +133,10 @@ export default {
       }
     },
     getWeatherGeo (lat, lng) {
-      return async () => {
-        const { body } = await this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/weather/geo/${lat}/${lng}`)
-        return body
-      } 
+      return this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/weather/geo/${lat}/${lng}`)
     },
     getAirGeo (lat, lng) {
-      return async () => {
-        const { body } = await this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/air/geo/${lat}/${lng}`)
-        return body
-      }
+        return this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/air/geo/${lat}/${lng}`)
     },
     toggleDisabledAll (enabled) {
       this.disableCountry = this.toggleProp(this.disableCountry, "country", enabled)
@@ -168,9 +167,11 @@ export default {
         return item !== remove
       })
     },
+    toString (object) {
+      return JSON.stringify(object)
+    },
     onSuccess () {
       this.enableForm()
-      console.log(this.weather)
       this.$emit('success', {
         weather: this.weather,
         air: this.air

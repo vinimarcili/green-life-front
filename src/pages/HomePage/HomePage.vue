@@ -41,7 +41,6 @@
         if (data) {
           this.weather = data.weather
           this.air = data.air
-          console.log(data)
           this.renderCard = true
         }
       }
