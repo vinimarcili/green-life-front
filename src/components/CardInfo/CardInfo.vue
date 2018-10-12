@@ -25,24 +25,19 @@
       }
     },
     methods: {
-      toJSON (object) {
-        return JSON.parse(JSON.stringify(object))
+      toJSON (string) {
+        return JSON.parse(string)
       }
     },
     watch: {
       weather (newVal, oldVal) {
-        newVal = this.toJSON(newVal)
-        oldVal = this.toJSON(oldVal)
-        console.log(newVal.name)
         if (newVal !== oldVal) {
-          this.thisWeather = this.toJSON(newVal)
-          console.log(this.thisWeather)
+          this.thisWeather = this.toJSON(newVal.weather)
         }
       },
       air (newVal, oldVal) {
         if (newVal !== oldVal) {
-          this.thisAir = this.toJSON(newVal)
-          // console.log(this.thisAir)
+          this.thisAir = this.toJSON(newVal.air)
         }
       }
     }

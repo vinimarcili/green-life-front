@@ -30,8 +30,8 @@
     data () {
       return {
         showForm: false,
-        weather: {},
-        air: {},
+        weather: false,
+        air: false,
         renderCard: false
       }
     },

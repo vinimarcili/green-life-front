@@ -89,26 +89,27 @@ export default {
       this.city = data
     },
     submit () {
-      this.disableForm()
-      this.getWeather()
-        .then(this.getAir)
-        .then(this.onSuccess)
-        .catch(() => {
-          this.error = "Não foi possivel obter os dados :("
-          this.enableForm()
-        })
+      async () => {
+        this.disableForm()
+
+        const responseAir = await this.getAir()
+        const responseWeather = await this.getWeather()
+
+        this.air = this.toString(responseAir.body)
+        this.weather = this.toString(responseWeather.body)
+
+        if (this.weather && this.air) {
+          this.onSuccess()
+        } else {
+          this.onError()
+        }
+      }
     },
     getWeather () {
       return this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/weather/${this.state}/${this.city}`)
-        .then((data) => {
-          this.weather = JSON.parse(JSON.stringify(data.body)) || {}
-        })
     },
     getAir () {
       return this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/air/${this.state}/${this.city}`)
-        .then((data) => {
-          this.air = JSON.parse(JSON.stringify(data.body)) || {}
-        })
     },
     submitLocation () {
       if ("geolocation" in navigator) {
@@ -116,7 +117,7 @@ export default {
           this.disableForm()
 
           const responseAir = await this.getAirGeo(p.coords.latitude, p.coords.longitude)
-          const responseWeather = await this.getAirGeo(p.coords.latitude, p.coords.longitude)
+          const responseWeather = await this.getWeatherGeo(p.coords.latitude, p.coords.longitude)
 
           this.air = this.toString(responseAir.body)
           this.weather = this.toString(responseWeather.body)
@@ -124,6 +125,7 @@ export default {
           if (this.weather && this.air) {
             this.onSuccess()
           } else {
+            console.log('oi')
             this.onError()
           }
         })
