@@ -52,6 +52,9 @@ Vue.component('state-select', StateSelect)
 
 import CitySelect from './components/CitySelect/CitySelect'
 Vue.component('city-select', CitySelect)
+
+import CardInfo from './components/CardInfo/CardInfo'
+Vue.component('card-info', CardInfo)
 /* Components */
 
 Vue.config.productionTip = false

@@ -17,11 +17,10 @@
     <b-container>
       <b-row>
         <b-col cols="12">
-          conteudo
+          <card-info v-if="renderCard" :weather="{weather}" :air="{air}" />
         </b-col>
       </b-row>
     </b-container>
-
   </div>
 </template>
 
@@ -32,7 +31,8 @@
       return {
         showForm: false,
         weather: {},
-        air: {}
+        air: {},
+        renderCard: false
       }
     },
     methods: {
@@ -41,6 +41,8 @@
         if (data) {
           this.weather = data.weather
           this.air = data.air
+          console.log(data)
+          this.renderCard = true
         }
       }
     }

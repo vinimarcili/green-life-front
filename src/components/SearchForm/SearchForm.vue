@@ -54,8 +54,8 @@ export default {
   name: 'SearchForm',
   data () {
     return {
-      weather: {},
-      air: {},
+      weather: false,
+      air: false,
       country: null,
       state: null,
       city: null,
@@ -112,15 +112,15 @@ export default {
     },
     submitLocation () {
       if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition((p) => {
+        navigator.geolocation.getCurrentPosition(async (p) => {
           this.disableForm()
-          this.getAirGeo(p.coords.latitude, p.coords.longitude)
-            .then(this.getWeatherGeo(p.coords.latitude, p.coords.longitude))
-            .then(this.onSuccess)
-            .catch(() => {
-              this.error = "Não foi possivel obter os dados :( Verifique o formulário e tente novamente"
-              this.enableForm()
-            })
+          this.weather = await this.getAirGeo(p.coords.latitude, p.coords.longitude)
+          this.air = await this.getWeatherGeo(p.coords.latitude, p.coords.longitude)
+          if (this.weather && this.air) {
+            this.onSuccess()
+          } else {
+            this.onError()
+          }
         })
       } else {
         this.disableLocation = true
@@ -128,16 +128,16 @@ export default {
       }
     },
     getWeatherGeo (lat, lng) {
-      return this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/weather/geo/${lat}/${lng}`)
-        .then((data) => {
-          this.weather = JSON.parse(JSON.stringify(data.body)) || {}
-        }) 
+      return async () => {
+        const { body } = await this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/weather/geo/${lat}/${lng}`)
+        return body
+      } 
     },
     getAirGeo (lat, lng) {
-      return this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/air/geo/${lat}/${lng}`)
-        .then((data) => {
-          this.air = JSON.parse(JSON.stringify(data.body)) || {}
-        }) 
+      return async () => {
+        const { body } = await this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/air/geo/${lat}/${lng}`)
+        return body
+      }
     },
     toggleDisabledAll (enabled) {
       this.disableCountry = this.toggleProp(this.disableCountry, "country", enabled)
@@ -170,10 +170,15 @@ export default {
     },
     onSuccess () {
       this.enableForm()
+      console.log(this.weather)
       this.$emit('success', {
         weather: this.weather,
         air: this.air
       })
+    },
+    onError () {
+      this.error = "Não foi possivel obter os dados :( Verifique o formulário e tente novamente."
+      this.enableForm()
     },
     enableForm () {
       this.toggleDisabledAll(true)

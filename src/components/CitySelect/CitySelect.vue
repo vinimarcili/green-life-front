@@ -22,8 +22,8 @@ export default {
   },
   watch: { 
     state (newVal, oldVal) { 
-       if (newVal !== oldVal) {
-      this.requestCities(newVal)
+      if (newVal !== oldVal) {
+        this.requestCities(newVal)
       }
     },
     selected (newVal, oldVal) {
