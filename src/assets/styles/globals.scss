@@ -76,4 +76,19 @@ $grow: grow 1s linear infinite;
   }
 }
 $spin-grow: spin-grow 1.5s linear infinite;
+
+@keyframes shake-right {
+  0% {
+    transform: translateX(-3px);
+  }
+
+  50% {
+    transform: translateX(3px);
+  }
+
+  100% {
+    transform: translateX(-3px);
+  }
+}
+$spin-grow: shake-right 1s linear infinite;
 /* Animations */

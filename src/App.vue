@@ -64,6 +64,7 @@ export default {
     align-items: center;
     justify-content: center;
     overflow-y: auto;
+    overflow-x: hide;
     background: $white;
   }
   @media (max-width: 991px) {
