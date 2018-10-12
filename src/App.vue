@@ -77,6 +77,11 @@ export default {
       min-height: $min-height-container-mobile;
     }
   }
+  @media (max-height: 750px) {
+    .content {
+      min-height: 440px;
+    }
+  }
   .loader {
     animation: $spin;
     font-size: 30px;

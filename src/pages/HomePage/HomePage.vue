@@ -66,6 +66,7 @@
     &.show {
       left: 0;
       max-width: 50%;
+      overflow-x: hidden;
       .pull-form {
         opacity: 0;
         pointer-events: none;
