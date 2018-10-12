@@ -92,7 +92,7 @@ export default {
       this.disableForm()
       this.getWeather()
         .then(this.getAir)
-        .then(this.enableForm)
+        .then(this.onSuccess)
         .catch(() => {
           this.error = "Não foi possivel obter os dados :("
           this.enableForm()
@@ -116,7 +116,7 @@ export default {
           this.disableForm()
           this.getAirGeo(p.coords.latitude, p.coords.longitude)
             .then(this.getWeatherGeo(p.coords.latitude, p.coords.longitude))
-            .then(this.enableForm)
+            .then(this.onSuccess)
             .catch(() => {
               this.error = "Não foi possivel obter os dados :( Verifique o formulário e tente novamente"
               this.enableForm()
@@ -166,6 +166,13 @@ export default {
     removeArrayItem (array, remove) {
       return array.filter((item) => {
         return item !== remove
+      })
+    },
+    onSuccess () {
+      this.enableForm()
+      this.$emit('success', {
+        weather: this.weather,
+        air: this.air
       })
     },
     enableForm () {

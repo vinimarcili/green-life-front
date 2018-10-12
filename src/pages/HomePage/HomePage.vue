@@ -8,7 +8,7 @@
           <p> 
             O GreenLife busca informações socio ambientais baseados na localização escolhida.
           </p>
-          <search-form />
+          <search-form v-on:success="pickData" />
         </div>
         <div class="pull-form" @click="showForm = true">
           <font-awesome-icon icon="angle-double-right" />
@@ -30,11 +30,20 @@
     name: 'HomePage',
     data () {
       return {
-        showForm: false
+        showForm: false,
+        weather: {},
+        air: {}
       }
     },
     methods: {
-    }    
+      pickData (data) {
+        this.showForm = false
+        if (data) {
+          this.weather = data.weather
+          this.air = data.air
+        }
+      }
+    }
   }
 </script>
 
