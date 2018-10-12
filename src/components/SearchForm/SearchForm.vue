@@ -40,6 +40,9 @@
       >
         Usar localização <font-awesome-icon icon="map-marker" />
       </b-button>
+      <p class="error" v-if="error">
+        {{error}}
+      </p>
     </b-form>
   </div>
 </template>
@@ -51,9 +54,8 @@ export default {
   name: 'SearchForm',
   data () {
     return {
-      temperature: {},
+      weather: {},
       air: {},
-      airGeo: {},
       country: null,
       state: null,
       city: null,
@@ -63,6 +65,7 @@ export default {
       disableButton: true,
       disableLocation: false,
       disables: [],
+      error: false,
       loading: false
     }
   },
@@ -86,55 +89,55 @@ export default {
       this.city = data
     },
     submit () {
-      this.toggleDisabledAll(false)
-      this.loading = true
-      this.getTemperature()
+      this.disableForm()
+      this.getWeather()
         .then(this.getAir)
-        .then(() => {
-          this.toggleDisabledAll(true)
-          this.loading = false
+        .then(this.enableForm)
+        .catch(() => {
+          this.error = "Não foi possivel obter os dados :("
+          this.enableForm()
         })
     },
-    getTemperature () {
-      this.toggleDisabledAll(false)
-      this.loading = true
-      return this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/temperature/${this.state}/${this.city}`)
+    getWeather () {
+      return this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/weather/${this.state}/${this.city}`)
         .then((data) => {
-          this.temperature = JSON.parse(JSON.stringify(data.body)) || {}
-        }, () => {
-          this.loading = false
-          this.toggleDisabledAll(true)
+          this.weather = JSON.parse(JSON.stringify(data.body)) || {}
         })
     },
     getAir () {
-
       return this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/air/${this.state}/${this.city}`)
         .then((data) => {
           this.air = JSON.parse(JSON.stringify(data.body)) || {}
-        }, () => {
-          this.loading = false
-          this.toggleDisabledAll(true)
         })
     },
     submitLocation () {
       if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition((p) => {
-          this.loading = true
-          this.toggleDisabledAll(false)
-          this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/air/geo/${p.coords.latitude}/${p.coords.longitude}`)
-           .then((data) => {
-              this.airGeo = JSON.parse(JSON.stringify(data.body)) || {}
-              this.toggleDisabledAll(true)
-              this.loading = false
-            }, () => {
-              this.toggleDisabledAll(true)
-              this.loading = false
-            }) 
+          this.disableForm()
+          this.getAirGeo(p.coords.latitude, p.coords.longitude)
+            .then(this.getWeatherGeo(p.coords.latitude, p.coords.longitude))
+            .then(this.enableForm)
+            .catch(() => {
+              this.error = "Não foi possivel obter os dados :("
+              this.enableForm()
+            })
         })
       } else {
         this.disableLocation = true
-        alert('Seu navegador não suporta geolocation')
+        this.error = 'Seu navegador não suporta geolocation :('
       }
+    },
+    getWeatherGeo (lat, lng) {
+      return this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/weather/geo/${lat}/${lng}`)
+        .then((data) => {
+          this.weather = JSON.parse(JSON.stringify(data.body)) || {}
+        }) 
+    },
+    getAirGeo (lat, lng) {
+      return this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/air/geo/${lat}/${lng}`)
+        .then((data) => {
+          this.air = JSON.parse(JSON.stringify(data.body)) || {}
+        }) 
     },
     toggleDisabledAll (enabled) {
       this.disableCountry = this.toggleProp(this.disableCountry, "country", enabled)
@@ -164,6 +167,15 @@ export default {
       return array.filter((item) => {
         return item !== remove
       })
+    },
+    enableForm () {
+      this.toggleDisabledAll(true)
+      this.loading = false
+    },
+    disableForm () {
+      this.toggleDisabledAll(false)
+      this.loading = true
+      this.error = false
     }
   }
 }
@@ -226,6 +238,13 @@ export default {
         cursor: not-allowed;
       }
     }
+  }
+  .error {
+    color: red;
+    font-weight: 700;
+    margin: 60px auto -40px;
+    border: 2px solid red;
+    transition: $transition;
   }
 }
 </style>
