@@ -1,9 +1,16 @@
 <template>
   <div id="search-form">
+    <div class="loader-container" v-if="loading">
+      <font-awesome-icon class="loader spin-grow" icon="cog" />
+      <span>
+        Coletando dados
+      </span>
+    </div>
     <b-form>
       <country-select
         v-on:pickcountry="recieveCountry"
         v-model="country"
+        :disabled="disableCountry"
       />
       <state-select
         v-on:pickstate="recieveState"
@@ -50,10 +57,13 @@ export default {
       country: null,
       state: null,
       city: null,
+      disableCountry: false,
       disabledState: true,
       disabledCity: true,
       disableButton: true,
-      disableLocation: false
+      disableLocation: false,
+      disables: [],
+      loading: false
     }
   },
   methods: {
@@ -76,33 +86,84 @@ export default {
       this.city = data
     },
     submit () {
-      this.temperature = this.getTemperature()
-      this.air = this.getAir()
+      this.toggleDisabledAll(false)
+      this.loading = true
+      this.getTemperature()
+        .then(this.getAir)
+        .then(() => {
+          this.toggleDisabledAll(true)
+          this.loading = false
+        })
     },
     getTemperature () {
+      this.toggleDisabledAll(false)
+      this.loading = true
       return this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/temperature/${this.state}/${this.city}`)
         .then((data) => {
-          return JSON.parse(JSON.stringify(data.body)) || {}
+          this.temperature = JSON.parse(JSON.stringify(data.body)) || {}
+        }, () => {
+          this.loading = false
+          this.toggleDisabledAll(true)
         })
     },
     getAir () {
+
       return this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/air/${this.state}/${this.city}`)
         .then((data) => {
-          return JSON.parse(JSON.stringify(data.body)) || {}
+          this.air = JSON.parse(JSON.stringify(data.body)) || {}
+        }, () => {
+          this.loading = false
+          this.toggleDisabledAll(true)
         })
     },
     submitLocation () {
       if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition((p) => {
+          this.loading = true
+          this.toggleDisabledAll(false)
           this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/air/geo/${p.coords.latitude}/${p.coords.longitude}`)
            .then((data) => {
               this.airGeo = JSON.parse(JSON.stringify(data.body)) || {}
+              this.toggleDisabledAll(true)
+              this.loading = false
+            }, () => {
+              this.toggleDisabledAll(true)
+              this.loading = false
             }) 
         })
       } else {
         this.disableLocation = true
         alert('Seu navegador não suporta geolocation')
       }
+    },
+    toggleDisabledAll (enabled) {
+      this.disableCountry = this.toggleProp(this.disableCountry, "country", enabled)
+
+      this.disabledState = this.toggleProp(this.disabledState, "state", enabled)
+
+      this.disabledCity = this.toggleProp(this.disabledCity, "city", enabled)
+
+      this.disableButton = this.toggleProp(this.disableButton, "button", enabled)
+
+      this.disableLocation = this.toggleProp(this.disableLocation, "location", enabled)
+    },
+    toggleProp (prop, string, enabled) {
+      if (!enabled) {
+        if (prop === false) {
+          this.disables.push(string)
+        }
+        return true
+      } else if (this.disables.includes(string)) {
+        this.disables = this.removeArrayItem(this.disables, string)
+        return false
+      } else {
+        return true
+      }
+    },
+    removeArrayItem (array, remove) {
+      return array.filter((item) => {
+        return item !== remove
+      })
     }
   }
 }
@@ -112,6 +173,31 @@ export default {
 @import "../../assets/styles/globals";
 #search-form {
   margin: 0 auto 60px;
+  .loader-container {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    line-height: 100vh;
+    left: 0;
+    top: 0;
+    background: rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    span {
+      display: inline-block;
+      line-height: 20px;
+      font-size: 18px;
+      font-weight: 600;
+      top: calc(50% + 50px);
+      left: calc(50% - 70px);
+      position: absolute;
+      animation: grow 1.5s linear infinite;
+    }
+    .loader {
+      font-size: 50px;
+      z-index: 2;
+      color: $green;
+    }
+  }
   select {
     width: 100%;
     border-radius: 0;

@@ -16,10 +16,6 @@ $purple-dark: #4E3C48;
 $purple-light: #6E3174;
 /* Purple */
 
-/* Transitions */
-$transition: all 0.3s ease;
-/* Transitions */
-
 /* Fonts */
 $default: 'Avenir', Helvetica, Arial, sans-serif;
 $comics: "Comic Sans MS", cursive, sans-serif;
@@ -30,3 +26,54 @@ $min-height-container: calc(100vh - 285px);
 $min-height-container-tablet: calc(100vh - 315px);
 $min-height-container-mobile: calc(100vh - 335px);
 /* Sizes */
+
+/* Transitions */
+$transition: all 0.3s ease;
+/* Transitions */
+
+/* Animations */
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+$spin: spin 2s linear infinite;
+
+@keyframes grow {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.5);
+  }
+  50% {
+    transform: scale(2);
+  }
+  75% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+$grow: grow 1s linear infinite;
+
+@keyframes spin-grow {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    transform: scale(1.5) rotate(90deg);
+  }
+  50% {
+    transform: scale(2) rotate(180deg);
+  }
+  75% {
+    transform: scale(1.5) rotate(270deg);
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
+  }
+}
+$spin-grow: spin-grow 1.5s linear infinite;
+/* Animations */

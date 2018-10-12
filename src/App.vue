@@ -76,6 +76,17 @@ export default {
       min-height: $min-height-container-mobile;
     }
   }
+  .loader {
+    animation: $spin;
+    font-size: 30px;
+    display: inline-block;
+    &.grow {
+      animation: $grow;
+    }
+    &.spin-grow {
+      animation: $spin-grow;
+    }
+  }
   /* Global Configs */
   /* Header */
   .navbar {
