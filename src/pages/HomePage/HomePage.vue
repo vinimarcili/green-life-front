@@ -1,5 +1,5 @@
 <template>
-  <div id="home" class="content">
+  <div id="home" class="content" :class="{openform:showForm}">
       <div class="form-container" :class="{show:showForm}">
         <div class="form-wrapper">
           <div class="push-form" @click="showForm = false">
@@ -57,6 +57,18 @@
 @import "../../assets/styles/globals";
 #home {
   position: relative;
+  &.openform {
+    &:after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: '';
+      display: block;
+      width: 100vw;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+    }
+  }
   p {
     display: inline-block;
     color: $green;
@@ -64,7 +76,7 @@
   }
   .form-container {
     width: 100%;
-    height: 99%;
+    height: 100%;
     display: flex;
     padding-right: 15px;
     padding-left: 15px;
@@ -127,7 +139,6 @@
       }
     }
     @media (max-width: 991px) {
-      height: 100%;
       &.show {
         max-width: 100%;
       }

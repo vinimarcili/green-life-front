@@ -11,6 +11,21 @@ $green-hover: #317464;
 $green-light: #15A784;
 /* Green */
 
+/* Yellow */
+$yellow-dark: #C4CC00;
+$yellow-light: #F8FF4C;
+/* Yellow */
+
+/* Orange */
+$orange-dark: #CC6100;
+$orange-light: #FF7900;
+/* Orange */
+
+/* Red */
+$red-dark: #7F0100;
+$red-light: #CC0200;
+/* Red */
+
 /* Purple */
 $purple-dark: #4E3C48;
 $purple-light: #6E3174;
@@ -91,4 +106,27 @@ $spin-grow: spin-grow 1.5s linear infinite;
   }
 }
 $shake-right: shake-right 1s linear infinite;
+
+@keyframes rotate-paused {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(180deg);
+  }
+
+  50% {
+    transform: rotate(180deg);
+  }
+
+  75% {
+    transform: rotate(360deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+$rotate-paused: rotate-paused 3s linear infinite
 /* Animations */

@@ -92,6 +92,9 @@ export default {
     &.spin-grow {
       animation: $spin-grow;
     }
+    &.rotate-paused {
+      animation: $rotate-paused;
+    }
   }
   /* Global Configs */
   /* Header */

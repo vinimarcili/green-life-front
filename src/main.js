@@ -10,6 +10,7 @@ Vue.use(BootstrapVue)
 /* Bootstrap */
 
 /* Font Awesome */
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { 
   faDizzy,
@@ -19,9 +20,16 @@ import {
   faCog,
   faAngleDoubleRight,
   faAngleDoubleLeft,
-  faSearch
+  faSearch,
+  faSpinner,
+  faHourglass,
+  faHourglassHalf,
+  faThermometerHalf,
+  faCloud,
+  faSun,
+  faTint,
+  faSeedling
 } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 library.add([
   faDizzy,
   faLeaf,
@@ -30,7 +38,15 @@ library.add([
   faCog,
   faAngleDoubleRight,
   faAngleDoubleLeft,
-  faSearch
+  faSearch,
+  faSpinner,
+  faHourglass,
+  faHourglassHalf,
+  faThermometerHalf,
+  faCloud,
+  faSun,
+  faTint,
+  faSeedling
 ])
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 /* Font Awesome */
