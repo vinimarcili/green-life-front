@@ -129,8 +129,8 @@
           top: -60px;
           right: 15px;
           cursor: pointer;
-          color: $white;
-          background: $green-hover;
+          color: $black;
+          background: $gray;
           width: 30px;
           height: 30px;
           line-height: 35px;
@@ -182,6 +182,10 @@
         background: $green-light;
         box-shadow: 0 0 1px 1px $green;
         color: $white;
+        .button-caption {
+          background: $green-light;
+          color: $white;
+        }
       }
       &.yellow {
         background: $yellow-light;
@@ -190,26 +194,45 @@
         .card-header {
           border-color: $black;
         }
+        .button-caption {
+          background: $yellow-light;
+        }
       }
       &.orange {
         background: $orange-light;
         box-shadow: 0 0 1px 1px $orange-dark;
         color: $white;
+        .button-caption {
+          background: $orange-light;
+          color: $white;
+        }
       }
       &.red {
         background: $red-light;
         box-shadow: 0 0 1px 1px $red-dark;
         color: $white;
+        .button-caption {
+          background: $red-light;
+          color: $white;
+        }
       }
       &.purple {
         background: $purple-light;
         box-shadow: 0 0 1px 1px $purple-dark;
         color: $white;
+        .button-caption {
+          background: $purple-light;
+          color: $white;
+        }
       }
       &.black {
         background: $black;
         box-shadow: 0 0 1px 1px $black;
         color: $white;
+        .button-caption {
+          background: $black;
+          color: $white;
+        }
       }
       @media (max-width: 991px) {
         margin: 70px auto 15px;
