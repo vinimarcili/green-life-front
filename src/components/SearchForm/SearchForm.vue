@@ -69,6 +69,15 @@ export default {
       loading: false
     }
   },
+  created () {
+    (async () => {
+      // Coordenadas de São Paulo como padrão
+      const lat = -23.5525
+      const lng = -46.6386
+
+      await this.getInfosByGeolocation(lat, lng)  
+    })()
+  },
   methods: {
     recieveCountry (data) {
       if (data) {
@@ -88,54 +97,57 @@ export default {
       }
       this.city = data
     },
-    submit () {
-      async () => {
-        this.disableForm()
-
-        const responseAir = await this.getAir()
-        const responseWeather = await this.getWeather()
-
-        this.air = this.toString(responseAir.body)
-        this.weather = this.toString(responseWeather.body)
-
-        if (this.weather && this.air) {
-          this.onSuccess()
-        } else {
-          this.onError()
-        }
-      }
-    },
-    getWeather () {
-      return this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/weather/${this.state}/${this.city}`)
-    },
-    getAir () {
-      return this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/air/${this.state}/${this.city}`)
-    },
-    submitLocation () {
-      if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(async (p) => {
+    getInfosByGeolocation (lat, lng) {
+      (async () => {
+        try {
           this.disableForm()
 
-          const responseAir = await this.getAirGeo(p.coords.latitude, p.coords.longitude)
-          const responseWeather = await this.getWeatherGeo(p.coords.latitude, p.coords.longitude)
+          const responseAir = await this.getAirGeo(lat, lng)
+          const responseWeather = await this.getWeatherGeo(lat, lng)
+
+          this.air = this.toString(responseAir.body)
+          this.weather = this.toString(responseWeather.body)
+          this.onSuccess()
+        } catch (err) {
+          this.onError()
+        }
+      })()
+    },
+    submit () {
+      (async () => {
+        try {
+          this.disableForm()
+
+          const responseAir = await this.getAir()
+          const responseWeather = await this.getWeather()
 
           this.air = this.toString(responseAir.body)
           this.weather = this.toString(responseWeather.body)
 
-          if (this.weather && this.air) {
-            this.onSuccess()
-          } else {
-            console.log('oi')
-            this.onError()
-          }
+          this.onSuccess()
+        } catch (err) {
+          this.onError()
+        }
+      })()
+    },
+    submitLocation () {
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(async (p) => {
+          await this.getInfosByGeolocation(p.coords.latitude, p.coords.longitude)  
         })
       } else {
         this.disableLocation = true
         this.error = 'Seu navegador não suporta geolocation :('
       }
     },
+    getWeather () {
+      return this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/weather/${this.state}/${this.city}`)
+    },
     getWeatherGeo (lat, lng) {
       return this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/weather/geo/${lat}/${lng}`)
+    },
+    getAir () {
+      return this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/air/${this.state}/${this.city}`)
     },
     getAirGeo (lat, lng) {
         return this.$http.get(`${VUE_APP_GREENLIFE_API_URL}/air/geo/${lat}/${lng}`)
@@ -191,6 +203,9 @@ export default {
       this.toggleDisabledAll(false)
       this.loading = true
       this.error = false
+    },
+    getRandomInRange (from, to, fixed) {
+      return (Math.random() * (to - from) + from).toFixed(fixed) * 1
     }
   }
 }

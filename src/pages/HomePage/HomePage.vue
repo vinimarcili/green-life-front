@@ -18,6 +18,9 @@
       <b-row>
         <b-col cols="12">
           <card-info v-if="renderCard" :weather="{weather}" :air="{air}" />
+          <p v-if="!renderCard">
+            Não foi possivel obter as informações. Tente novamente mais tarde :(
+          </p>
         </b-col>
       </b-row>
     </b-container>
@@ -32,16 +35,18 @@
         showForm: false,
         weather: false,
         air: false,
-        renderCard: false
+        renderCard: true
       }
     },
     methods: {
       pickData (data) {
         this.showForm = false
-        if (data) {
+         if (data && data.air !== {} && data.weather !== {}) {
           this.weather = data.weather
           this.air = data.air
           this.renderCard = true
+        } else {
+          this.renderCard = false
         }
       }
     }

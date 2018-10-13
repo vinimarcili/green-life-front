@@ -1,10 +1,34 @@
 <template>
   <div id="card-info">
     <b-card 
-      title="Informações climáticas"
-      :sub-title="thisWeather.name"
+      header="Informações climáticas"
+      :title="thisWeather.name"
+      :class="thisAir.color"
     >
-
+      <h1>
+        {{thisWeather.data.temperature}} / {{thisWeather.data.sensation}}
+        <span>
+          Temperatura / Sensação
+        </span>
+      </h1>
+      <h2>
+        {{thisWeather.data.condition}}
+        <span>
+          Condição
+        </span>
+      </h2>
+      <h3>
+        {{thisAir.class.br}} ({{thisAir.index}})
+        <span>
+           Qualidade do ar
+        </span>
+      </h3>
+      <h4>
+        {{thisWeather.data.humidity}}
+        <span>
+          Humidade
+        </span>
+      </h4>
     </b-card>
   </div>
 </template>
@@ -12,16 +36,18 @@
 <script>
   export default {
     name: 'CardInfo',
-    props: [
-      'weather',
-      'air'
-    ],
+    props: {
+      weather: Object,
+      air: Object
+    },
     data () {
       return {
         thisWeather: {
-          name: ''
+          data: {}
         },
-        thisAir: {}
+        thisAir: {
+          class: {}
+        }
       }
     },
     methods: {
