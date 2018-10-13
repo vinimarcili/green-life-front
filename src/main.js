@@ -20,6 +20,7 @@ import {
   faCog,
   faAngleDoubleRight,
   faAngleDoubleLeft,
+  faQuestionCircle,
   faSearch,
   faSpinner,
   faHourglass,
@@ -28,7 +29,8 @@ import {
   faCloud,
   faSun,
   faTint,
-  faSeedling
+  faSeedling,
+  faTimes
 } from '@fortawesome/free-solid-svg-icons'
 library.add([
   faDizzy,
@@ -38,6 +40,7 @@ library.add([
   faCog,
   faAngleDoubleRight,
   faAngleDoubleLeft,
+  faQuestionCircle,
   faSearch,
   faSpinner,
   faHourglass,
@@ -46,7 +49,8 @@ library.add([
   faCloud,
   faSun,
   faTint,
-  faSeedling
+  faSeedling,
+  faTimes
 ])
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 /* Font Awesome */
