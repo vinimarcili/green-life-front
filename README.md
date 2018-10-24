@@ -40,5 +40,5 @@ yarn run lint
 Variavéis que devem ser definidas em um arquivo `.env` na raiz do projeto.
 
 ```
-GREENLIFE_API_URL -> URL da API do GreenLife
+VUE_APP_GREENLIFE_API_URL -> URL da API do GreenLife
 ```
